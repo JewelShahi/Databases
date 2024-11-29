@@ -120,57 +120,57 @@ INSERT INTO Order_Details (order_id, book_id, quantity, price) VALUES
 (8, 12, 1, 23.99),
 (9, 15, 3, 56.97);
 
--- -- Retrieve books with their authors and order details
--- SELECT c.name AS Customers, sum(od.price * od.quantity) AS Total_Order_Price
--- FROM Order_Details od
--- JOIN Orders o ON od.order_id = o.order_id
--- JOIN Customers c ON o.customer_id = c.customer_id
--- GROUP BY c.name
--- ORDER BY Total_Order_Price DESC LIMIT 3;
+-- Retrieve books with their authors and order details
+SELECT c.name AS Customers, sum(od.price * od.quantity) AS Total_Order_Price
+FROM Order_Details od
+JOIN Orders o ON od.order_id = o.order_id
+JOIN Customers c ON o.customer_id = c.customer_id
+GROUP BY c.name
+ORDER BY Total_Order_Price DESC LIMIT 3;
 
--- -- Calculate total revenue per genre
--- SELECT genre, SUM(price * stock_quantity) AS Total_Revenue
--- FROM Books
--- GROUP BY genre
--- ORDER BY Total_Revenue DESC;
+-- Calculate total revenue per genre
+SELECT genre, SUM(price * stock_quantity) AS Total_Revenue
+FROM Books
+GROUP BY genre
+ORDER BY Total_Revenue DESC;
 
--- -- Find top customers by total spending
--- SELECT c.name AS Customers, sum(od.price * od.quantity) AS Total_Order_Price
--- FROM Order_Details od
--- JOIN Orders o ON od.order_id = o.order_id
--- JOIN Customers c ON o.customer_id = c.customer_id
--- GROUP BY c.name
--- ORDER BY Total_Order_Price DESC LIMIT 3;
+-- Find top customers by total spending
+SELECT c.name AS Customers, sum(od.price * od.quantity) AS Total_Order_Price
+FROM Order_Details od
+JOIN Orders o ON od.order_id = o.order_id
+JOIN Customers c ON o.customer_id = c.customer_id
+GROUP BY c.name
+ORDER BY Total_Order_Price DESC LIMIT 3;
 
--- -- Identify authors with the highest number of books sold
--- SELECT a.author_name as Author_Name, SUM(od.quantity) AS Total_Quantity_Sold
--- FROM Order_Details od
--- JOIN Books b ON od.book_id = b.book_id
--- JOIN Authors a ON b.author_id = a.author_id
--- GROUP BY a.author_name;
+-- Identify authors with the highest number of books sold
+SELECT a.author_name as Author_Name, SUM(od.quantity) AS Total_Quantity_Sold
+FROM Order_Details od
+JOIN Books b ON od.book_id = b.book_id
+JOIN Authors a ON b.author_id = a.author_id
+GROUP BY a.author_name;
 
--- -- Find the most popular genre among top-spending customers
--- SELECT b.genre AS Genre, COUNT(b.genre) AS Amount_Sold
--- FROM Order_details od
--- JOIN Books b ON od.book_id = b.book_id
--- GROUP BY  b.genre
--- ORDER BY Amount_Sold DESC;
+-- Find the most popular genre among top-spending customers
+SELECT b.genre AS Genre, COUNT(b.genre) AS Amount_Sold
+FROM Order_details od
+JOIN Books b ON od.book_id = b.book_id
+GROUP BY  b.genre
+ORDER BY Amount_Sold DESC;
 
--- -- Retrieve the author's name, the average price of their books, and the total number of books sold by each author.
--- SELECT a.author_name AS Author_Name, AVG(b.price) AS Average_Book_Price,  SUM(od.quantity) AS Total_Book_Sold
--- FROM Order_Details od
--- JOIN Books b ON od.book_id = b.book_id
--- JOIN Authors a ON b.author_id = a.author_id
--- GROUP BY a.author_name
--- ORDER BY Average_Book_Price DESC LIMIT 3;
+-- Retrieve the author's name, the average price of their books, and the total number of books sold by each author.
+SELECT a.author_name AS Author_Name, AVG(b.price) AS Average_Book_Price,  SUM(od.quantity) AS Total_Book_Sold
+FROM Order_Details od
+JOIN Books b ON od.book_id = b.book_id
+JOIN Authors a ON b.author_id = a.author_id
+GROUP BY a.author_name
+ORDER BY Average_Book_Price DESC LIMIT 3;
 
--- -- Write a SQL query to find the top 5 customers who have spent the most money on books, along with the total number of books they've purchased and the average price per book. 
--- SELECT c.name AS Customer_Name, SUM(od.quantity * od.price) AS Total_Amount_Spent, SUM(od.quantity) AS Total_Books_Purchased, AVG(od.price) AS Average_Price_Per_Book
--- FROM Order_Details od
--- JOIN Orders o ON od.order_id = o.order_id
--- JOIN Customers c ON o.customer_id = c.customer_id
--- GROUP BY c.name
--- ORDER BY Total_Amount_Spent DESC LIMIT 5;
+-- Write a SQL query to find the top 5 customers who have spent the most money on books, along with the total number of books they've purchased and the average price per book. 
+SELECT c.name AS Customer_Name, SUM(od.quantity * od.price) AS Total_Amount_Spent, SUM(od.quantity) AS Total_Books_Purchased, AVG(od.price) AS Average_Price_Per_Book
+FROM Order_Details od
+JOIN Orders o ON od.order_id = o.order_id
+JOIN Customers c ON o.customer_id = c.customer_id
+GROUP BY c.name
+ORDER BY Total_Amount_Spent DESC LIMIT 5;
 
 WITH TopCustomers AS (
 	SELECT c.name AS Customer_Name,
